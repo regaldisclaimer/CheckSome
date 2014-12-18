@@ -1,0 +1,49 @@
+html, body{
+	height: 100%;
+	font-family: Roboto, sans-serif;
+	font-size: 16px;
+	text-align: center;
+	background-color: #f1f1f1;
+    scrolling: no;
+}
+
+iframe {
+    position: absolute;
+    z-index:1;
+    top: 0px;
+    left: 0px;
+}
+
+h1{
+
+}
+
+div {
+
+}
+
+#blockDescription{
+	max-width: 80vw;
+    margin-left: 10vw;
+    margin-right: 10vw;
+}
+
+#loginBox{
+
+}
+
+#checkButton{
+    background-color: #64989D;
+    -moz-border-radius: 5px;
+    -webkit-border-radius: 5px;
+    border-radius:6px;
+    color: #3B2D38;
+    font-family: 'Roboto';
+    font-size: 24px;
+    text-decoration: none;
+    cursor: pointer;
+    border:none;
+    min-height:8vh;
+    min-width:24vw;
+    vertical-align: middle;
+}

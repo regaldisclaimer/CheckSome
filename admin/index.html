@@ -1,0 +1,50 @@
+<html>
+<head>
+	<title>Admin</title>
+</head>
+<body>
+	<p>Quite a curious cat, huh? You may see vulnerabilites on server side, but it's just a layer on top of server validation.
+		It's like one of those traps. The further you dig into it, the more trouble you're going to find. Suspicious activites on this page may be recorded for security purposes, and by staying on this page, you agree to such recording.</p>
+
+	<div class='headLineInputs'>
+		<input type='text' id='headLineInputOne' placeholder='Headline 1'>
+		<input type='text' id='headLineInputTwo' placeholder='Headline 2'>
+		<button type='button' class='submit' onclick='updateHeadlines()'>Update</button>
+	</div>
+	<div class='logInput'>
+		<input type='text' id='logNameInput' placeholder='Log Name'>
+		<input type='number' id='logExpInput' palceholder='Log Expiry (Linux Epoch)'>
+		<button type='button' class='submit' onclick='addNewLog()'>Add</button>
+	</div>
+
+
+
+</body>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+<script src="https://cdn.firebase.com/js/client/1.1.2/firebase.js"></script>
+
+<script type="text/javascript">
+	function updateHeadlines() {
+		$(document).ready(function(){
+			//Do updating here
+
+
+
+			//Updated log message
+			console.log('Updated With:');
+			console.log($('#headLineInputOne').val());
+			console.log($('#headLineInputTwo').val());
+		});
+	};
+
+	function addNewLog(){
+		$(document).ready(function(){
+			console.log($('#logNameInput').val());
+			console.log($('#logExpInput').val());
+		});
+		//add log to logPile
+
+		//assign log to user
+	} 
+</script>
+</html>

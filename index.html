@@ -1,0 +1,129 @@
+<!-- Copyright (c) Regal Disclaimer 2014 All Rights Reserved.
+Contact: regaldisclaimer@gmail.com for all usage permissions -->
+<html>
+	<head>
+
+		<script type="text/javascript"> 
+			var adfly_id = 8113008; 
+			var adfly_advert = 'int';
+			var frequency_cap = 5;
+			//var frequency_delay = 5; 
+			var frequency_delay = 1;
+			var init_delay = 2; 
+			var popunder = true; 
+			var requested_protocol = 'https';
+		</script>
+		<script src="entry.js"></script> 
+		
+
+		<link rel='stylesheet' type='text/css' href='index.css'>
+		<link href='https://fonts.googleapis.com/css?family=Roboto:400,300,700' rel='stylesheet' type='text/css'>
+
+		<link rel="apple-touch-icon" href=#>
+  		<link rel="apple-touch-icon-precomposed" href=#>
+		<link rel="icon" type="image/png" href=#>
+
+		<meta name="mobile-web-app-capable" content="yes">
+		<link rel="shortcut icon" sizes="128x128" href=#>
+		<link rel="shortcut icon" sizes="196x196" href=#>
+		<link rel="shortcut icon" sizes="256x256" href=#>
+	</head>
+	<body>
+		<div id='whole'>
+			<div id='anteLog'>
+				<h1>Lorem</h1>
+				<div id='blockDescription'>
+					<p>Bacon ipsum dolor amet filet mignon ribeye kevin meatloaf boudin, sirloin capicola tenderloin turkey frankfurter shoulder bacon venison pig ham hock. Ham hock shank sirloin sausage meatloaf, porchetta brisket chuck venison filet mignon shankle chicken shoulder t-bone. Cow pastrami beef meatball short ribs chicken strip steak filet mignon venison frankfurter ham brisket. Boudin pastrami hamburger pork chop ham t-bone. Fatback short loin bacon ball tip landjaeger ham hock doner salami beef ribs leberkas shank. Landjaeger leberkas tenderloin sausage, tri-tip kevin t-bone shank beef ribs jerky pork tongue shankle. Andouille ground round pork, pork belly ham prosciutto rump bacon.</p>
+				</div>
+
+				<div id='loginBox'></div>
+			</div>
+
+			<div id='postLog'>
+				<input id='checkButton'type='submit' value='Button!' />
+			</div>
+		</div>
+	</body>	
+
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+	<script src="https://cdn.firebase.com/js/client/1.1.2/firebase.js"></script>
+	<script>
+
+	//Firebase Init.
+	var myRef = new Firebase("https://WhereIsWaldo.firebaseio.com");
+
+	//keys
+	var keys = ["504542647","974278929","464833277","470884704","986837688","514274373","774505352","246734560","843463616","173325133"];
+
+	//Google authData, to be assigned during auth
+	var googAuthData;
+
+	//monitor auth status
+	var ref = new Firebase("https://CheckSome.firebaseio.com");
+	ref.onAuth(function(authData) {
+	  if (authData) {
+	    // user authenticated with Firebase
+	    console.log("User ID: " + authData.uid + ", Provider: " + authData.provider);
+	  } else {
+	    // user is logged out
+	    console.log("logged out");
+	  }
+	});
+
+	//on button press: checkButton
+
+	$(document).ready(function(){
+		console.log('ready');
+		$('#checkButton').on('click', function(){
+			console.log('clicked');
+
+			//goog authenticate
+			myRef.authWithOAuthPopup("google", function(error, authData),{
+				//assign authData from the logIn to googAuthdata var
+				googAuthData = authData;
+
+				//create log for logging in here
+				\to be implemented
+			},
+			{
+				remember: "default",
+				scope: "email"
+			});
+
+			
+
+			//assign 
+
+
+
+			//epoch assignment
+			var epochTime = new Date().getTime();
+			var intEpochDiv = Math.floor((epochTime/10000000));
+			console.log(intEpochDiv);
+			var epochKey = (intEpochDiv%10);
+			console.log(epochKey);
+			var keyURL = keys[epochKey];
+			console.log(keyURL);
+
+			//redirect
+			$('#whole').hide(1000, function(){
+				$(document.body).append("<iframe src='504542647.html' height='100%' width='100%' frameborder='0'></iframe>");
+				$('iframe').hide();
+				$('iframe').show(1000);
+			});
+
+
+
+			// $(document.body).replaceWith(
+			// 	"<iframe src='504542647.html' height='100%' width='100%' frameborder='0'></iframe>"
+			// );
+
+
+			//src=(keyURL+'.html')
+
+		});
+	});
+
+	</script>
+</html>
+

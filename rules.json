@@ -1,0 +1,66 @@
+{
+  "rules": {
+    ".read": false,
+    ".write": "(auth!=null)",
+    "adminMessageOne": {
+      ".read": true,
+      ".validate": "(auth.uid=='\ edit and add admin uid here')"
+      },
+      "adminMessageTwo": {
+        ".read": true,
+        ".validate": "(auth.uid=='\ edit and add admin uid here')"
+        },
+        "checkLog":{
+          ".read": true,
+          "$check_id":{
+            ".validate": "(!data.exists() && newData.exists())&&(newData.hasChildren(['gain', 'name', 'uid', 'timestamp']))",
+            "gain":{
+              ".validate": "((newData.isString())&&(newData.val().length<500)&&(newData.val().length>0))"
+              \either null or within an assignment's expiration, the time which is also verified as current
+              },
+              "name":{
+                ".validate": "((newData.isString())&&(newData.val()==(root.child('userNames/'+auth.uid).val())))"
+                },
+                "uid":{
+                  ".validate": "(newData.val()==auth.uid)"
+                  },
+                  "timestamp":{
+                    ".validate": "((newData.val()>=now-500)&&(((newData.val())-(data.parent().parent().parent().child('userTimes/'+auth.uid).val()))<=10))"
+                    \ verified again as current time
+                    },
+                    "$other": { ".validate": false }
+                  }
+                  },
+                  "userTimes": {
+
+                    "$user" :{
+                      ".validate": "((newData.exists())&&(auth.uid===$user)&&(newData.isNumber())&&(newData.val()==now)&&((!data.exists() || newData.val() > data.val()+5000 \ change the time interval here)))"
+                    }
+                    },
+                    "authLog": {
+                      },
+                      "userNames":{
+                        ".read": "($uid==auth.uid)",
+                        "$uid":{
+                          ".validate" : "($uid==auth.uid)",
+                          "name": {
+                            ".validate": "(newData.exists())&&(!data.exists())"
+                            },
+                            "$other": { ".validate": false}
+                          }
+                          },
+                          "assignment":{
+                            ".read": "($uid==auth.uid)",
+                            "$userid":{
+                              ".validate" : "($uid==auth.uid)",
+                              "$assignment":{
+                                ".validate": false, \this will surely prevent all external assignment?
+                                "assignmentName":{},
+                                "expirationTime":{}
+                                },
+                                "$other": { ".validate": false}
+                              }
+                              },
+                              "$other": { ".validate": false }
+                            }
+                          }
