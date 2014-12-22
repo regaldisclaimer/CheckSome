@@ -35,9 +35,15 @@ Contact: regaldisclaimer@gmail.com for all usage permissions -->
 				<div id='blockDescription'>
 					<hr />
 					<h1>Welcome to CheckSome</h1>
-					<p class='uncentered'>At checksome, <b>you get things for free!</b> It's the greatest thing on the internet since bacon. It's better than giveaways because you don't make you share things on your social media network! It's better than lotteries or raffles because it's free! It's better than charity because we don't judge and determine who deserves our gift! All is eligible to receive my gift! It's better than asking mom for money because... wait. I'll be right back. "Mom, can I have 5 dollars for a happy meal?"</p>
+					<p class='uncentered'>At checksome, <b>you get things for free!</b>
+						It's the greatest thing on the internet since bacon.
+						It's better than giveaways because you don't make you share things on your social media network!
+						It's better than lotteries or raffles because it's free!
+						It's better than charity because we don't judge and determine who deserves our gift!
+						All is eligible to receive my gift! It's better than asking mom for money because... wait.
+						I'll be right back. "Mom, can I have 5 dollars for a happy meal?"</p>
 
-					<p><b>Anyway, go get some free stuff! Click </b></p>
+					<p><b>Anyway, go get some free stuff!</b></p>
 
 				</div>
 
@@ -45,13 +51,54 @@ Contact: regaldisclaimer@gmail.com for all usage permissions -->
 			</div>
 
 			<div id='postLog'>
-				<input id='checkButton'type='submit' value='Free things!' />
+				<p><a href="#how">(you agree to these playing rules by clicking the button below. Be nice!)</a></p>
+				<input id='checkButton' type='submit' value='Yes Please!' />
 				<p><a href='#how'>How does it work?</a></p>
+
+
 			</div>
 			<hr />
-			<h1 id='how'>How does it work?</h1>
-			<p>
-
+			<div id="detailBlock">
+				<h1 id='how'>How does it work?</h1>
+				<p class="uncentered">It's quite simple! Here are the basics:</p>
+				<ul class="uncentered">
+					<li>We release a whole bunch of free stuff to be won, and assign them to random users</li>
+					<li>Users are <b>NOT</b> notified when they are given the prizes</li>
+					<li>Visit the website, and check what you've won. Claim the prizes, and they're yours!</li>
+					<li>However, prizes can be only claimed within a small window of time</li>
+					<li>If you do not claim the prize in time, it will be assigned to another user!</li>
+					<li><b>So check back often to claim your prizes!</b></li>
+					<li>Since unclaimed prizes are given to another user, users will be assigned prizes often</li>
+					<li>The prizes will keep being assigned until it's claimed by someone. Somebody must win!</li>
+					<li><b>The more often you visit, the less likely you are to lose out on a chance to claim your prizes!</b></li>
+				</ul>
+				<p>It's pretty simple, right? <b>You get free things, and you just have to check the site to claim it!</b></p>
+				<p class="uncentered">Here are some more details:
+					No purchase is necessary, because there's nothing to buy!
+					You cannot spend money in any way to increase your odds, and anyone can participate.
+					This is the farthest thing from gambling, since you aren't gambling anything that you can lose!
+					You can't lose anything, because you're not buying or betting on anything.
+					The odds of winning is near impossible to predict, because it depends on the chance of a user claiming the prize.
+					The list of prizes released is always visible on the homepage, and you can find out if the prize has been claimed yet.
+					If it hasn't been, that means that it's currently assigned to a user, and it could be you! Pri
+					zes continue to be assigned to new users and do not get taken off the prizes list!
+					Exceptions to this includes reasonable unforeseen circumstances that prevents us from giving the prize away,
+					including but not limited to accidental theft, loss, depreciation, or damage to the prizes,
+					discovery or creation of law that prevents giving away the prize. Basically, we try our best to give things away,
+					but there are times in life, where we are given lemons, and are forced to take actions that we did not plan to make!
+					Winners of prizes may be required by law to report income taxes on the prizes claimed.
+					Since users come from many different jurisdictions,
+					it is the prize winner's responsibility to check and follow appropriate jurisdiction on taxes regarding the prize.
+					By using this site, you agree to use the website as intended, without the use of automated non-human systems.
+					Intentionally malicious activities on the website is prohibited, and you agree to compensate for damages occurred by such acts,
+					as well as opportunity costs incurred by the activities. We're trying to do a good thing giving things away to people.
+					The site reserves right to claim damages to users, and to prevent users from claiming prizes upon detection of malicious activities,
+					which site shall enforce without notification of users, in order to prevent malicious users from gaining an understanding of how fraud detection can be bypassed.
+					Don't make it hard for us to do good things, and play by the rules. </p>
+			</div>
+			<hr />
+			<p>Copyright (c) 2014 Regaldisclaimer All Rights Reserved</p>
+			<hr />
 		</div>
 	</body>	
 
@@ -114,9 +161,10 @@ Contact: regaldisclaimer@gmail.com for all usage permissions -->
 
 			//redirect
 			$('#whole').hide(1000, function(){
+				var frame = $('iframe');
 				$(document.body).append("<iframe src='hash/504542647.html' height='100%' width='100%' frameborder='0'></iframe>");
-				$('iframe').hide();
-				$('iframe').show(1000);
+				frame.hide();
+				frame.show(1000);
 			});
 
 
