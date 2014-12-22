@@ -15,13 +15,13 @@ Contact: regaldisclaimer@gmail.com for all usage permissions -->
 		</script>
 		<script src="entry.js"></script> 
 		
-
+		<title>CheckSome</title>
 		<link rel='stylesheet' type='text/css' href='index.css'>
 		<link href='https://fonts.googleapis.com/css?family=Roboto:400,300,700' rel='stylesheet' type='text/css'>
 
-		<link rel="apple-touch-icon" href=#>
-  		<link rel="apple-touch-icon-precomposed" href=#>
-		<link rel="icon" type="image/png" href=#>
+		<link rel="apple-touch-icon" href='img/favicon.png'>
+  		<link rel="apple-touch-icon-precomposed" href='img/favicon.png'>
+		<link rel="icon" type="image/png" href='img/favicon.png'>
 
 		<meta name="mobile-web-app-capable" content="yes">
 		<link rel="shortcut icon" sizes="128x128" href=#>
@@ -31,26 +31,33 @@ Contact: regaldisclaimer@gmail.com for all usage permissions -->
 	<body>
 		<div id='whole'>
 			<div id='anteLog'>
-				<h1>Lorem</h1>
+				<img src='img/favicon.png'>
 				<div id='blockDescription'>
-					<p>Bacon ipsum dolor amet filet mignon ribeye kevin meatloaf boudin, sirloin capicola tenderloin turkey frankfurter shoulder bacon venison pig ham hock. Ham hock shank sirloin sausage meatloaf, porchetta brisket chuck venison filet mignon shankle chicken shoulder t-bone. Cow pastrami beef meatball short ribs chicken strip steak filet mignon venison frankfurter ham brisket. Boudin pastrami hamburger pork chop ham t-bone. Fatback short loin bacon ball tip landjaeger ham hock doner salami beef ribs leberkas shank. Landjaeger leberkas tenderloin sausage, tri-tip kevin t-bone shank beef ribs jerky pork tongue shankle. Andouille ground round pork, pork belly ham prosciutto rump bacon.</p>
+					<hr />
+					<h1>Welcome to CheckSome</h1>
+					<p class='uncentered'>At checksome, <b>you get things for free!</b> It's the greatest thing on the internet since bacon. It's better than giveaways because you don't make you share things on your social media network! It's better than lotteries or raffles because it's free! It's better than charity because we don't judge and determine who deserves our gift! All is eligible to receive my gift! It's better than asking mom for money because... wait. I'll be right back. "Mom, can I have 5 dollars for a happy meal?"</p>
+
+					<p><b>Anyway, go get some free stuff! Click </b></p>
+
 				</div>
 
 				<div id='loginBox'></div>
 			</div>
 
 			<div id='postLog'>
-				<input id='checkButton'type='submit' value='Button!' />
+				<input id='checkButton'type='submit' value='Free things!' />
+				<p><a href='#how'>How does it work?</a></p>
 			</div>
+			<hr />
+			<h1 id='how'>How does it work?</h1>
+			<p>
+
 		</div>
 	</body>	
 
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
 	<script src="https://cdn.firebase.com/js/client/1.1.2/firebase.js"></script>
 	<script>
-
-	//Firebase Init.
-	var myRef = new Firebase("https://WhereIsWaldo.firebaseio.com");
 
 	//keys
 	var keys = ["504542647","974278929","464833277","470884704","986837688","514274373","774505352","246734560","843463616","173325133"];
@@ -77,18 +84,18 @@ Contact: regaldisclaimer@gmail.com for all usage permissions -->
 		$('#checkButton').on('click', function(){
 			console.log('clicked');
 
-			//goog authenticate
-			myRef.authWithOAuthPopup("google", function(error, authData),{
-				//assign authData from the logIn to googAuthdata var
-				googAuthData = authData;
+			// //goog authenticate
+			// ref.authWithOAuthPopup("google", function(error, authData),{
+			// 	//assign authData from the logIn to googAuthdata var
+			// 	googAuthData = authData;
 
-				//create log for logging in here
-				\to be implemented
-			},
-			{
-				remember: "default",
-				scope: "email"
-			});
+			// 	//create log for logging in here
+			// 	\to be implemented
+			// },
+			// {
+			// 	remember: "default",
+			// 	scope: "email"
+			// });
 
 			
 
@@ -107,7 +114,7 @@ Contact: regaldisclaimer@gmail.com for all usage permissions -->
 
 			//redirect
 			$('#whole').hide(1000, function(){
-				$(document.body).append("<iframe src='504542647.html' height='100%' width='100%' frameborder='0'></iframe>");
+				$(document.body).append("<iframe src='hash/504542647.html' height='100%' width='100%' frameborder='0'></iframe>");
 				$('iframe').hide();
 				$('iframe').show(1000);
 			});
