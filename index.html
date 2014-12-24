@@ -5,7 +5,7 @@ Contact: regaldisclaimer@gmail.com for all usage permissions -->
 
 		<script type="text/javascript"> 
 			var adfly_id = 8113008; 
-			var adfly_advert = 'banner';
+			var adfly_advert = 'int';
 			var frequency_cap = 5;
 			var frequency_delay = 5;
 			var init_delay = 2; 
@@ -138,7 +138,7 @@ Contact: regaldisclaimer@gmail.com for all usage permissions -->
 			console.log('clicked');
 
 			if(!isAuthenticated){
-				ref.authWithOAuthPopup("google", function(error, authData) {
+				ref.authWithOAuthRedirect("google", function(error, authData) {
 					if (error) {
 						console.log("Login Failed!", error);
 					} else {
