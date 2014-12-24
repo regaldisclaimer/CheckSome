@@ -2,16 +2,136 @@
 
 <head>
 	<title>Key Found</title>
+	<script type="text/javascript">
+		var adfly_id = 8113008;
+	</script>
+	<script src="display.js"></script>
+	<link rel='stylesheet' type='text/css' href='hash.css'>
+	<link href='https://fonts.googleapis.com/css?family=Roboto:400,300,700' rel='stylesheet' type='text/css'>
+
 </head>
 
 <body>
-	<p>
-		Congrats! Linux Epoch Key matches
+	<p id="headOneDiv"></p>
+	<p id="headTwoDiv"></p>
 
-	</p>
+	<div id="hayStackDiv">
+		<p>Your recently assigned prizes!</p>
+		<p>Claim them before they are given to someone else!</p>
+		<ul id="hayStackUl"></ul>
+	</div>
+
+	<div id="logPileDiv">
+		<p>Recently Released Prizes:</p>
+		<ul id="logPileUl"></ul>
+	</div>
+
+
+	<p></p>
 </body>
 
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+<script src="https://cdn.firebase.com/js/client/1.1.2/firebase.js"></script>
 <script>
+
+	var ref = new Firebase("https://checksome.firebaseio.com");
+	//Firebase logPile reference
+	var logPileRef = new Firebase("https://CheckSome.firebaseIO.com/logPile");
+
+	//Test
+
+//	ref.child('mysteries').set(6);
+	var nowTime = Date.now();
+	logPileRef.push({name:'TestPrize', expTime:nowTime, claimed:true});
+
+	//Test
+
+
+	//Monitoring Auth
+	var googAuthData;
+	ref.onAuth(function(authData) {
+		if (authData) {
+			// user authenticated with Firebase
+			googAuthData = authData;
+			console.log("User ID: " + authData.uid + ", Provider: " + authData.provider);
+		} else {
+			// user is logged out
+			console.log("logged out");
+		}
+	});
+
+
+	$(document).ready(function(){
+		var logPileUl = $('#logPileUl');
+		var numMystery;
+		//Show Mystery Prizes
+		ref.child('mysteries').once('value', function(nameSnapshot){
+			numMystery = nameSnapshot.val();
+			var mysText = numMystery+" Mystery Prizes Currently Unclaimed!";
+			var mysLi = $('<li>');
+			var mysEl = $("<strong class='pName'></strong>");
+			mysEl.text(mysText).prepend(mysLi);
+			logPileUl.append(mysEl);
+			var asWell = $("<li><strong class='pName'>As well as</strong>");
+			logPileUl.append(asWell);
+		});
+		//Display last 100 Prizes
+		logPileRef.limit(100).on('child_added', function(snapshot){
+			var data = snapshot.val();
+			var isClaimed = data.claimed;
+			var isClaimed = (isClaimed ? "Claimed!" : "Not yet claimed!");
+			var prizeName = data.name;
+			var prizeTime = new Date(+data.expTime);
+			prizeTime = prizeTime.toString();
+
+			prizeTime = "          Expiration on "+prizeTime+ "          Status: "+ isClaimed;
+
+			var timeEl = $('<li>');
+			var nameEl = $("<strong class='pName'></strong>");
+			nameEl.text(prizeName);
+			timeEl.text(prizeTime).prepend(nameEl);
+
+
+			logPileUl.append(timeEl);
+		});
+
+		//Display User Prizes
+		var uid = googAuthData.uid;
+		var hayStackUl = $('#hayStackUl');
+		var userRef = ref.child('hayStacks').child(uid);
+
+
+		//Test
+		//userRef.child('hayLogPile').push({name:'AnotherTest', expTime:nowTime, claimed:true});
+
+
+
+
+
+		userRef.child('hayLogPile').limit(100).on('child_added', function(snapShot){
+			var data = snapShot.val();
+			var hayName = data.name;
+			var hayTime = new Date(+data.expTime);
+			var hayClaimed = (data.claimed ? "Claimed" : "Unclaimed");
+			hayTime = hayTime.toString();
+
+			hayTime = "          Expiration on "+hayTime+"          Status: "+ hayClaimed;
+
+			var hTimeEl = $('<li>');
+			var hNameEl = $("<strong class='hName'></strong>");
+			hNameEl.text(hayName);
+			hTimeEl.text(hayTime).prepend(hNameEl);
+
+			hayStackUl.append(hTimeEl);
+		});
+	});
+
+
+	//only allow check every 30000 ms.
+
+	//Prizes last 10800000 ms by default
+
+
 </script>
 
 </html>

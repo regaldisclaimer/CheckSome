@@ -12,6 +12,7 @@ Contact: regaldisclaimer@gmail.com for all usage permissions -->
 			var init_delay = 2; 
 			var popunder = true; 
 			var requested_protocol = 'https';
+			var adfly_protocol = 'https';
 		</script>
 		<script src="entry.js"></script> 
 		
@@ -112,12 +113,14 @@ Contact: regaldisclaimer@gmail.com for all usage permissions -->
 	//Google authData, to be assigned during auth
 	var googAuthData;
 
+	var isAuthenticated = false;
 	//monitor auth status
 	var ref = new Firebase("https://checksome.firebaseio.com");
 	ref.onAuth(function(authData) {
 	  if (authData) {
 	    // user authenticated with Firebase
 	    console.log("User ID: " + authData.uid + ", Provider: " + authData.provider);
+	  	isAuthenticated = true;
 	  } else {
 	    // user is logged out
 	    console.log("logged out");
@@ -131,20 +134,18 @@ Contact: regaldisclaimer@gmail.com for all usage permissions -->
 		$('#checkButton').on('click', function(){
 			console.log('clicked');
 
-			// //goog authenticate
-			// ref.authWithOAuthPopup("google", function(error, authData),{
-			// 	//assign authData from the logIn to googAuthdata var
-			// 	googAuthData = authData;
+			if(!isAuthenticated){
+				ref.authWithOAuthPopup("google", function(error, authData) {
+					if (error) {
+						console.log("Login Failed!", error);
+					} else {
+						console.log("Authenticated successfully with payload:", authData);
+					}
+				},{
+					scope: "email"
+				});
+			}
 
-			// 	//create log for logging in here
-			// 	\to be implemented
-			// },
-			// {
-			// 	remember: "default",
-			// 	scope: "email"
-			// });
-
-			
 
 			//assign 
 

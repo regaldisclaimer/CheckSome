@@ -1,44 +1,77 @@
 {
-	"rules":{
-		".read": false,
-		".write": "(auth!=null)",
-		//Headlines
-		"headlineOne":{
-			".read":true,
-			".validate": "(auth.uid == \ adminID)"
-		},
+  "rules":{
+	".read": false,
+	".write": "(auth!=null)",
+	//Headlines
+	"headlineOne":{
+	  ".read":true,
+	  ".validate": "(auth.uid == 'google:112807978875748409764')"
+	},
 
-		"headlineTwo":{
-			".read":true,
-			".validate": "(auth.uid == \ adminID)"
+	"headlineTwo":{
+	  ".read":true,
+	  ".validate": "(auth.uid == 'google:112807978875748409764')"
+	},
+	//log of all prizes given out
+	"logPile":{
+	  ".read":true,
+	  ".validate": "(auth.uid == 'google:112807978875748409764')",
+	  //individual prize
+	  "$log" : {
+		".validate": "(auth.uid == 'google:112807978875748409764')&&(newData.hasChildren(['name','expTime','claimed','mysteries']))",
+		"name": {
+		  ".validate": "(newData.isString())&&(auth.uid == 'google:112807978875748409764')"
 		},
-		//log of all prizes given out 
-		"logPile":{
-			".read":true,
-			".validate": "(auth.uid == \ adminID)&&(newData.hasChildren(['name','expTime']))",
-			"name":{
-				".validate":"(newData.isString())"
-			},
-			"expTime":{
-				".validate":"(newData.isNumber())"
-			}
+		"expTime": {
+		  ".validate": "(newData.isNumber())&&(auth.uid == 'google:112807978875748409764')"
 		},
-
-		//collection of users
-		"hayStacks":{
-			//for each user
-			"$user" :{
-				".read": "($user==auth.uid)",
-				//userName
-				
-				//lastCheckedTime
-				"creed" : {
-					".validate": "((newData.exists())&&(auth.uid===$user)&&(newData.isNumber())&&(newData.val()==now)&&((!data.exists() || newData.val() > data.val()+100000 \ change value here",
-					"$other": { ".validate": false }
-				},
-
-				
-			}
+		"claimed": {
+		  ".validate": "(newData.isBoolean())&&(auth.uid == 'google:112807978875748409764')"
 		}
+	  },
+	  //number of mystery prizes
+	  "mysteries": {
+		".validate": "(newData.isNumber())&&(auth.uid == 'google:112807978875748409764')"
+	  }
+	},
+
+	//collection of users
+	"hayStacks":{
+	  //for each user
+	  "$user" :{
+		".read": "($user==auth.uid)",
+		".validate": "($user==auth.uid)",
+		//isAdmin
+		"isAdmin": {
+		  ".validate": "(newData.isBoolean())&&(!data.exists())"
+		},
+		//userEmail
+		"nameTag": {
+		  ".validate": "(auth.uid==$user)&&(newData.exists()||(!data.exists()))"
+		},
+		//lastCheckedTime
+		"creed": {
+		  ".validate": "((newData.exists())&&(auth.uid===$user)&&(newData.isNumber())&&(newData.val()==now)&&((!data.exists() || newData.val() > data.val()+30000)))",
+		  "$other": { ".validate": false }
+		},
+		//Prizes assigned
+		"hayLogPile": {
+		  ".validate": "(auth.uid == 'google:112807978875748409764')",
+		  "$hayLog": {
+			//"Mystery" if mystery prize
+			"name": {
+			  ".validate": "(auth.uid == 'google:112807978875748409764')"
+			},
+			"expTime": {
+			  ".validate": "(auth.uid == 'google:112807978875748409764')"
+			},
+			//expired if not true
+			"claimed": {
+			  ".validate": "(auth.uid == 'google:112807978875748409764')"
+			}
+		  }
+		}
+	  }
 	}
+  }
 }

@@ -1,0 +1,34 @@
+html, body {
+    height: 100%;
+    font-family: Roboto, sans-serif;
+    font-size: 18px;
+    background-color: #ffffff;
+    color: #3B2D38;
+    scrolling: no;
+}
+
+a {
+    color: #016633;
+}
+
+div {
+
+}
+
+p {
+
+}
+
+ul{
+    list-style-position: inside;
+}
+
+#logPileDiv {
+    display: inline;
+    max-width: 40vw;
+}
+
+#hayStackDiv {
+    display: inline;
+    max-width: 40vw;
+}
