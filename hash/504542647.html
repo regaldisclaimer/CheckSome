@@ -4,10 +4,9 @@
 	<title>Key Found</title>
 	<script type="text/javascript">
 		var adfly_id = 8113008;
-		var adfly_advert = 'banner';
+		var adfly_advert = 'int';
 		var frequency_cap = 5;
 		var frequency_delay = 5;
-		var adfly_domain = 'j.gs';
 		var init_delay = 2;
 		var popunder = true;
 		var requested_protocol = 'https';
@@ -20,6 +19,7 @@
 </head>
 
 <body>
+	<p id="loginNotice"></p>
 	<p id="headOneDiv"></p>
 	<p id="headTwoDiv"></p>
 
@@ -68,6 +68,7 @@
 		} else {
 			// user is logged out
 			console.log("logged out");
+			$('#loginNotice').text('Please go back and Log In to receive prizes!')
 		}
 	});
 

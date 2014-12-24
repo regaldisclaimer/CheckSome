@@ -71,3 +71,8 @@ li{
     min-width:24vw;
     vertical-align: middle;
 }
+
+#loginNotice {
+    color: #ff0000;
+    font-size: 36px;
+}
