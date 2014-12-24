@@ -16,18 +16,21 @@
 	<p id="headTwoDiv"></p>
 
 	<div id="hayStackDiv">
-		<p>Your recently assigned prizes!</p>
+		<h1>Your prizes!</h1>
 		<p>Claim them before they are given to someone else!</p>
 		<ul id="hayStackUl"></ul>
 	</div>
 
 	<div id="logPileDiv">
-		<p>Recently Released Prizes:</p>
+		<h1>All prizes on CheckSome!</h1>
+		<p>Look out for expiring items. They may be assigned to you when they expire!</p>
 		<ul id="logPileUl"></ul>
+	</div>
+	<div>
+		<input id='claimButton' type='submit' value='Claim Prizes!' />
 	</div>
 
 
-	<p></p>
 </body>
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
@@ -41,8 +44,8 @@
 	//Test
 
 //	ref.child('mysteries').set(6);
-	var nowTime = Date.now();
-	logPileRef.push({name:'TestPrize', expTime:nowTime, claimed:true});
+//	var nowTime = Date.now();
+//	logPileRef.push({name:'TestPrize', expTime:nowTime, claimed:true});
 
 	//Test
 
@@ -64,17 +67,7 @@
 	$(document).ready(function(){
 		var logPileUl = $('#logPileUl');
 		var numMystery;
-		//Show Mystery Prizes
-		ref.child('mysteries').once('value', function(nameSnapshot){
-			numMystery = nameSnapshot.val();
-			var mysText = numMystery+" Mystery Prizes Currently Unclaimed!";
-			var mysLi = $('<li>');
-			var mysEl = $("<strong class='pName'></strong>");
-			mysEl.text(mysText).prepend(mysLi);
-			logPileUl.append(mysEl);
-			var asWell = $("<li><strong class='pName'>As well as</strong>");
-			logPileUl.append(asWell);
-		});
+
 		//Display last 100 Prizes
 		logPileRef.limit(100).on('child_added', function(snapshot){
 			var data = snapshot.val();
@@ -92,8 +85,24 @@
 			timeEl.text(prizeTime).prepend(nameEl);
 
 
-			logPileUl.append(timeEl);
+			logPileUl.prepend(timeEl);
+
 		});
+
+
+		//Show Mystery Prizes
+		ref.child('mysteries').once('value', function(nameSnapshot){
+			numMystery = nameSnapshot.val();
+			var asWell = $("<li><strong class='pName'>As well as these awesome prizes:</strong>");
+			logPileUl.prepend(asWell);
+			var mysText = numMystery+" Mystery Prizes Currently Unclaimed!";
+			var mysLi = $('<li>');
+			var mysEl = $("<strong class='pName'></strong>");
+			mysEl.text(mysText).prepend(mysLi);
+			logPileUl.prepend(mysEl);
+
+		});
+
 
 		//Display User Prizes
 		var uid = googAuthData.uid;
@@ -122,15 +131,23 @@
 			hNameEl.text(hayName);
 			hTimeEl.text(hayTime).prepend(hNameEl);
 
-			hayStackUl.append(hTimeEl);
+			hayStackUl.prepend(hTimeEl);
 		});
 	});
 
 
-	//only allow check every 30000 ms.
+	//if nothing on the prize list, display "sorry, no prizes yet. Please come back in a bit to see what youve won"
 
 	//Prizes last 10800000 ms by default
 
+	//your prize if unclaimed, and expired, say expired instead.
+
+	//if unclaimed and not expired, say AVAILABLE
+
+	//onClaim, take AVAILABLE, and
+
+	//prizes should have a 'winner field' Clients will be able to right their uid if they are within timeframe, checked on firebase
+	//mailto prize won,
 
 </script>
 
