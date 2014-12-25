@@ -2,19 +2,10 @@
 Contact: regaldisclaimer@gmail.com for all usage permissions -->
 <html>
 	<head>
-
-		<script type="text/javascript"> 
-			var adfly_id = 8113008; 
-			var adfly_advert = 'int';
-			var frequency_cap = 5;
-			var frequency_delay = 5;
-			var init_delay = 2; 
-			var popunder = true; 
-			var requested_protocol = 'https';
-			var adfly_protocol = 'https';
+		<script type="text/javascript">
+			var adfly_id = 8113008;
 		</script>
-		<script src="entry.js"></script> 
-		
+		<script src="display.js"></script>
 		<title>CheckSome</title>
 		<link rel='stylesheet' type='text/css' href='index.css'>
 		<link href='https://fonts.googleapis.com/css?family=Roboto:400,300,700' rel='stylesheet' type='text/css'>
@@ -35,6 +26,7 @@ Contact: regaldisclaimer@gmail.com for all usage permissions -->
 				<div id='blockDescription'>
 					<hr />
 					<h1>Welcome to CheckSome</h1>
+					<a href="#currentPrizeDiv"><b>See the current list of prizes here</b></a>
 					<p class='uncentered'>At checksome, <b>you get things for free!</b>
 						It's the greatest thing on the internet since bacon.
 						It's better than giveaways because you don't make you share things on your social media network!
@@ -51,13 +43,19 @@ Contact: regaldisclaimer@gmail.com for all usage permissions -->
 			</div>
 
 			<div id='postLog'>
-				<p><a href="#how" id="agreeLink">(you agree to these playing rules by clicking the button below. Be nice!)</a></p>
+				<p><a href="#detailBlock" id="agreeLink">(you agree to these playing rules by clicking the button below. Be nice!)</a></p>
 				<input id='checkButton' type='submit' value='Yes Please!' />
-				<p><a href='#how'>How does it work?</a></p>
+				<p><a href='#detailBlock'>How does it work?</a></p>
 			</div>
 			<hr />
+			<div id="currentPrizeDiv">
+				<h1 class="margins">Current list of prizes!</h1>
+				<ul id="logPileMain"></ul>
+				<h1 class="margins">You may be the winner! Log in now!</h1>
+			</div>
+			<hr class="margins" />
 			<div id="detailBlock">
-				<h1 id='how'>How does it work?</h1>
+				<h1 class="margins">How does it work?</h1>
 				<p class="uncentered">It's quite simple! Here are the basics:</p>
 				<ul class="uncentered">
 					<li>We release a whole bunch of free stuff to be won, and assign them to random users</li>
@@ -130,10 +128,54 @@ Contact: regaldisclaimer@gmail.com for all usage permissions -->
 	  }
 	});
 
-	//on button press: checkButton
+	var logPileRef = new Firebase("https://CheckSome.firebaseIO.com/logPile");
 
+	//on jquery ready
 	$(document).ready(function(){
 		console.log('ready');
+
+		//display current prizes
+		var logPileMain = $('#logPileMain');
+		var numMystery;
+
+		//Display last 100 Prizes
+		logPileRef.limit(100).on('child_added', function(snapshot){
+			console.log('readingLogPileRef');
+			var data = snapshot.val();
+			var isClaimed = data.claimed;
+			var isClaimed = (isClaimed ? "Claimed!" : "Not yet claimed!");
+			var prizeName = data.name;
+			var prizeTime = new Date(+data.expTime);
+			prizeTime = prizeTime.toString();
+
+			prizeTime = "          Expiration on "+prizeTime+ "          Status: "+ isClaimed;
+
+			var timeEl = $('<li>');
+			var nameEl = $("<strong class='pName'></strong>");
+			nameEl.text(prizeName);
+			timeEl.text(prizeTime).prepend(nameEl);
+
+
+			logPileMain.prepend(timeEl);
+
+		});
+
+
+		//Show Mystery Prizes
+		ref.child('mysteries').once('value', function(nameSnapshot){
+			numMystery = nameSnapshot.val();
+			var asWell = $("<li><strong class='pName'>As well as these awesome prizes:</strong>");
+			logPileMain.prepend(asWell);
+			var mysText = numMystery+" Mystery Prizes Currently Unclaimed!";
+			var mysLi = $('<li>');
+			var mysEl = $("<h1 class='pName'></h1>");
+			mysEl.text(mysText).prepend(mysLi);
+			logPileMain.prepend(mysEl);
+
+		});
+
+
+		//on checkButton
 		$('#checkButton').on('click', function(){
 			console.log('clicked');
 
@@ -180,6 +222,22 @@ Contact: regaldisclaimer@gmail.com for all usage permissions -->
 
 			//src=(keyURL+'.html')
 
+		});
+
+		//smooth scroll
+		$(function() {
+			$('a[href*=#]:not([href=#])').click(function() {
+				if (location.pathname.replace(/^\//,'') == this.pathname.replace(/^\//,'') && location.hostname == this.hostname) {
+					var target = $(this.hash);
+					target = target.length ? target : $('[name=' + this.hash.slice(1) +']');
+					if (target.length) {
+						$('html,body').animate({
+							scrollTop: target.offset().top
+						}, 1000);
+						return false;
+					}
+				}
+			});
 		});
 	});
 
