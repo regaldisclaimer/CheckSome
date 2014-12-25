@@ -140,7 +140,6 @@ Contact: regaldisclaimer@gmail.com for all usage permissions -->
 
 		//Display last 100 Prizes
 		logPileRef.limit(100).on('child_added', function(snapshot){
-			console.log('readingLogPileRef');
 			var data = snapshot.val();
 			var isClaimed = data.claimed;
 			var isClaimed = (isClaimed ? "Claimed!" : "Not yet claimed!");
