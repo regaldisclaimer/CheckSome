@@ -5,7 +5,6 @@ html, body {
     background-color: #ffffff;
     text-align:center;
     color: #3B2D38;
-    scrolling: no;
 }
 
 a {
@@ -73,6 +72,8 @@ li{
 }
 
 #loginNotice {
+    margin-top: 10vh;
     color: #ff0000;
-    font-size: 36px;
+    font-size: 48px;
+    text-decoration: underline
 }

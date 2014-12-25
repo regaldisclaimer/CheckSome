@@ -99,7 +99,7 @@
 			logPileUl.prepend(asWell);
 			var mysText = numMystery+" Mystery Prizes Currently Unclaimed!";
 			var mysLi = $('<li>');
-			var mysEl = $("<strong class='pName'></strong>");
+			var mysEl = $("<h1 class='pName'></h1>");
 			mysEl.text(mysText).prepend(mysLi);
 			logPileUl.prepend(mysEl);
 
@@ -115,15 +115,22 @@
 		//Test
 		//userRef.child('hayLogPile').push({name:'AnotherTest', expTime:nowTime, claimed:true});
 
-
-
-
+		var currentTime = new Date();
+		var hayKey = [];
+		var hayCount = 1;
 
 		userRef.child('hayLogPile').limit(100).on('child_added', function(snapShot){
 			var data = snapShot.val();
 			var hayName = data.name;
+			var hayClaimed;
+			//check if expired
+			if (data.claimed){
+				hayClaimed = 'Claimed'
+			} else {
+				hayClaimed = ((currentTime>data.expTime) ? "AVAILABLE" : "Expired");
+			}
 			var hayTime = new Date(+data.expTime);
-			var hayClaimed = (data.claimed ? "Claimed" : "Unclaimed");
+			hayKey[hayCount] = hayTime;
 			hayTime = hayTime.toString();
 
 			hayTime = "          Expiration on "+hayTime+"          Status: "+ hayClaimed;
@@ -134,7 +141,34 @@
 			hTimeEl.text(hayTime).prepend(hNameEl);
 
 			hayStackUl.prepend(hTimeEl);
+
+			hayCount++;
 		});
+
+		userRef.child('hayLogPile').once('value', function(snapShot){
+			if(snapShot.val()==null){
+				prizeExistsCB(false);
+			} else {
+				prizeExistsCB(true);
+			}
+		});
+
+		function prizeExistsCB(prizeExists) {
+			if (prizeExists === false) {
+				hayStackUl.prepend("<li>It appears no prizes are assigned to you yet. Please come back in a bit to see what you've won!<strong class='hName'></strong>");
+			}
+		}
+
+		$('claimButton').on('click', function(){
+			var claimedPrizes = [];
+			console.log('claim!');
+			for (var i=1; i<=100; i++){
+				if(hayKey[i]>currentTime){
+					claimedPrizes.push(i);
+				}
+			}
+
+		})
 	});
 
 
