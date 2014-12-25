@@ -127,7 +127,7 @@
 			if (data.claimed){
 				hayClaimed = 'Claimed'
 			} else {
-				hayClaimed = ((currentTime>data.expTime) ? "AVAILABLE" : "Expired");
+				hayClaimed = ((currentTime<data.expTime) ? "AVAILABLE" : "Expired");
 			}
 			var hayTime = new Date(+data.expTime);
 			hayKey[hayCount] = hayTime;
