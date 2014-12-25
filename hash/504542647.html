@@ -1,18 +1,11 @@
 <html>
 
 <head>
-	<title>Key Found</title>
+	<title>CheckSome</title>
 	<script type="text/javascript">
 		var adfly_id = 8113008;
-		var adfly_advert = 'int';
-		var frequency_cap = 5;
-		var frequency_delay = 5;
-		var init_delay = 2;
-		var popunder = true;
-		var requested_protocol = 'https';
-		var adfly_protocol = 'https';
 	</script>
-	<script src="entry.js"></script>
+	<script src="display.js"></script>
 	<link rel='stylesheet' type='text/css' href='hash.css'>
 	<link href='https://fonts.googleapis.com/css?family=Roboto:400,300,700' rel='stylesheet' type='text/css'>
 
@@ -68,7 +61,7 @@
 		} else {
 			// user is logged out
 			console.log("logged out");
-			$('#loginNotice').text('Please go back and Log In to receive prizes!')
+			$('#loginNotice').text('NOT LOGGED IN: Please go back and Log In to receive prizes!')
 		}
 	});
 
@@ -145,18 +138,7 @@
 	});
 
 
-	//if nothing on the prize list, display "sorry, no prizes yet. Please come back in a bit to see what youve won"
 
-	//Prizes last 10800000 ms by default
-
-	//your prize if unclaimed, and expired, say expired instead.
-
-	//if unclaimed and not expired, say AVAILABLE
-
-	//onClaim, take AVAILABLE, and
-
-	//prizes should have a 'winner field' Clients will be able to right their uid if they are within timeframe, checked on firebase
-	//mailto prize won,
 
 </script>
 
