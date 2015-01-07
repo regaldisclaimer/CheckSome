@@ -52,6 +52,25 @@ ul {
     margin-bottom: 10vh;
 }
 
+li{
+    position: relative;
+    margin:0 0 15px 0;
+}
+
+#logPileMain{
+    list-style-position: inside;
+    list-style: none;
+    margin: 0px;
+    padding: 20px;
+    height: 50vh;
+    min-height: 400px;
+    overflow: auto;
+    border-style: solid;
+    border-width: 4px;
+    border-color: #016633;
+}
+
+
 .uncentered {
     text-align: justify;
 }
@@ -83,7 +102,6 @@ ul {
     -webkit-border-radius: 5px;
     border-radius: 6px;
     color: #f1f1f1;
-    font-family: 'Roboto';
     font-size: 24px;
     text-decoration: none;
     cursor: pointer;
@@ -93,7 +111,11 @@ ul {
     vertical-align: middle;
 }
 
-#how{
+.margins{
     margin-top: 10vh;
     margin-bottom: 10vh;
+}
+
+#agreeLink{
+    font-size: 12px;
 }

@@ -1,17 +1,179 @@
 <html>
 
 <head>
-	<title>Key Found</title>
+	<title>CheckSome</title>
+	<script type="text/javascript">
+		var adfly_id = 8113008;
+	</script>
+	<script src="display.js"></script>
+	<link rel='stylesheet' type='text/css' href='hash.css'>
+	<link href='https://fonts.googleapis.com/css?family=Roboto:400,300,700' rel='stylesheet' type='text/css'>
+
 </head>
 
 <body>
-	<p>
-		Congrats! Linux Epoch Key matches
+	<p id="loginNotice"></p>
+	<p id="headOneDiv"></p>
+	<p id="headTwoDiv"></p>
 
-	</p>
+	<div id="hayStackDiv">
+		<h1>Your prizes!</h1>
+		<p>Claim them before they are given to someone else!</p>
+		<ul id="hayStackUl"></ul>
+	</div>
+
+	<div id="logPileDiv">
+		<h1>All prizes on CheckSome!</h1>
+		<p>Look out for expiring items. They may be assigned to you when they expire!</p>
+		<ul id="logPileUl"></ul>
+	</div>
+	<div>
+		<input id='claimButton' type='submit' value='Claim Prizes!' />
+	</div>
+
+
 </body>
 
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+<script src="https://cdn.firebase.com/js/client/1.1.2/firebase.js"></script>
 <script>
+
+	var ref = new Firebase("https://checksome.firebaseio.com");
+	//Firebase logPile reference
+	var logPileRef = new Firebase("https://CheckSome.firebaseIO.com/logPile");
+
+	//Test
+
+//	ref.child('mysteries').set(6);
+//	var nowTime = Date.now();
+//	logPileRef.push({name:'TestPrize', expTime:nowTime, claimed:true});
+
+	//Test
+
+
+	//Monitoring Auth
+	var googAuthData;
+	ref.onAuth(function(authData) {
+		if (authData) {
+			// user authenticated with Firebase
+			googAuthData = authData;
+			console.log("User ID: " + authData.uid + ", Provider: " + authData.provider);
+		} else {
+			// user is logged out
+			console.log("logged out");
+			$('#loginNotice').text('NOT LOGGED IN: Please go back and Log In to receive prizes!')
+		}
+	});
+
+
+	$(document).ready(function(){
+		var logPileUl = $('#logPileUl');
+		var numMystery;
+
+		//Display last 100 Prizes
+		logPileRef.limit(100).on('child_added', function(snapshot){
+			var data = snapshot.val();
+			var isClaimed = data.claimed;
+			var isClaimed = (isClaimed ? "Claimed!" : "Not yet claimed!");
+			var prizeName = data.name;
+			var prizeTime = new Date(+data.expTime);
+			prizeTime = prizeTime.toString();
+
+			prizeTime = "          Expiration on "+prizeTime+ "          Status: "+ isClaimed;
+
+			var timeEl = $('<li>');
+			var nameEl = $("<strong class='pName'></strong>");
+			nameEl.text(prizeName);
+			timeEl.text(prizeTime).prepend(nameEl);
+
+
+			logPileUl.prepend(timeEl);
+
+		});
+
+
+		//Show Mystery Prizes
+		ref.child('mysteries').once('value', function(nameSnapshot){
+			numMystery = nameSnapshot.val();
+			var asWell = $("<li><strong class='pName'>As well as these awesome prizes:</strong>");
+			logPileUl.prepend(asWell);
+			var mysText = numMystery+" Mystery Prizes Currently Unclaimed!";
+			var mysLi = $('<li>');
+			var mysEl = $("<h1 class='pName'></h1>");
+			mysEl.text(mysText).prepend(mysLi);
+			logPileUl.prepend(mysEl);
+
+		});
+
+
+		//Display User Prizes
+		var uid = googAuthData.uid;
+		var hayStackUl = $('#hayStackUl');
+		var userRef = ref.child('hayStacks').child(uid);
+
+
+		//Test
+		//userRef.child('hayLogPile').push({name:'AnotherTest', expTime:nowTime, claimed:true});
+
+		var currentTime = new Date();
+		var hayKey = [];
+		var hayCount = 1;
+
+		userRef.child('hayLogPile').limit(100).on('child_added', function(snapShot){
+			var data = snapShot.val();
+			var hayName = data.name;
+			var hayClaimed;
+			//check if expired
+			if (data.claimed){
+				hayClaimed = 'Claimed'
+			} else {
+				hayClaimed = ((currentTime<data.expTime) ? "AVAILABLE" : "Expired");
+			}
+			var hayTime = new Date(+data.expTime);
+			hayKey[hayCount] = hayTime;
+			hayTime = hayTime.toString();
+
+			hayTime = "          Expiration on "+hayTime+"          Status: "+ hayClaimed;
+
+			var hTimeEl = $('<li>');
+			var hNameEl = $("<strong class='hName'></strong>");
+			hNameEl.text(hayName);
+			hTimeEl.text(hayTime).prepend(hNameEl);
+
+			hayStackUl.prepend(hTimeEl);
+
+			hayCount++;
+		});
+
+		userRef.child('hayLogPile').once('value', function(snapShot){
+			if(snapShot.val()==null){
+				prizeExistsCB(false);
+			} else {
+				prizeExistsCB(true);
+			}
+		});
+
+		function prizeExistsCB(prizeExists) {
+			if (prizeExists === false) {
+				hayStackUl.prepend("<li>It appears no prizes are assigned to you yet. Please come back in a bit to see what you've won!<strong class='hName'></strong>");
+			}
+		}
+
+		$('claimButton').on('click', function(){
+			var claimedPrizes = [];
+			console.log('claim!');
+			for (var i=1; i<=100; i++){
+				if(hayKey[i]>currentTime){
+					claimedPrizes.push(i);
+				}
+			}
+
+		})
+	});
+
+
+
+
 </script>
 
 </html>
