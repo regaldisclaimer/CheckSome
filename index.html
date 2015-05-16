@@ -2,10 +2,10 @@
 Contact: regaldisclaimer@gmail.com for all usage permissions -->
 <html>
 	<head>
-		<script type="text/javascript">
-			var adfly_id = 8113008;
+<!-- 	<script type="text/javascript">
+		// 	var adfly_id = 8113008;
 		</script>
-		<script src="display.js"></script>
+		<script src="display.js"></script> -->
 		<title>CheckSome</title>
 		<link rel='stylesheet' type='text/css' href='index.css'>
 		<link href='https://fonts.googleapis.com/css?family=Roboto:400,300,700' rel='stylesheet' type='text/css'>
@@ -49,12 +49,19 @@ Contact: regaldisclaimer@gmail.com for all usage permissions -->
 			</div>
 			<hr />
 			<div id="currentPrizeDiv">
+
+				<iframe scrolling="no" style="border: 0; width: 728px; height: 90px;" src="https://coinurl.com/get.php?id=37749&SSL=1"></iframe>
 				<h1 class="margins">Current list of prizes!</h1>
 				<ul id="logPileMain"></ul>
+
+				<iframe scrolling="no" style="border: 0; width: 728px; height: 90px;" src="https://coinurl.com/get.php?id=37750&SSL=1"></iframe>
 				<h1 class="margins">You may be the winner! Log in now!</h1>
+
+
 			</div>
 			<hr class="margins" />
 			<div id="detailBlock">
+				<iframe scrolling="no" style="border: 0; width: 728px; height: 90px;" src="https://coinurl.com/get.php?id=37751&SSL=1"></iframe>
 				<h1 class="margins">How does it work?</h1>
 				<p class="uncentered">It's quite simple! Here are the basics:</p>
 				<ul class="uncentered">
@@ -208,7 +215,7 @@ Contact: regaldisclaimer@gmail.com for all usage permissions -->
 			//redirect
 			$('#whole').hide(1000, function(){
 				var frame = $('iframe');
-				$(document.body).append("<iframe src='hash/504542647.html' height='100%' width='100%' frameborder='0'></iframe>");
+				$(document.body).append("<iframe id='theFrame' src='hash/504542647.html' height='100%' width='100%' frameborder='0'></iframe>");
 				frame.hide();
 				frame.show(1000);
 			});
@@ -242,5 +249,68 @@ Contact: regaldisclaimer@gmail.com for all usage permissions -->
 	});
 
 	</script>
+
+	<script type="text/javascript" src="https://coinurl.com/script/jquery-latest.min.js"></script>
+	<script type="text/javascript" src="https://coinurl.com/script/jquery.cookie.js"></script>
+	<script type="text/javascript" src="https://coinurl.com/script/md5.js"></script>
+
+	<script type="text/javascript">
+	$(function() {
+	    var id = "f1626b2cbd2a9059b07afcc171632704";
+	   
+	    var url = encodeURIComponent(window.location.href);
+	    var hash = CryptoJS.MD5(url);
+	    if($.cookie('coinurl_' + hash) == null) {
+	        var redirect = "http://cur.lv/redirect.php?id=" + id + "&url=" + url;
+	        $.cookie('coinurl_' + hash, true, {expires: 1});
+	        top.location.assign(redirect);
+	    }
+	});
+	</script>
+	<script type="text/javascript">
+	$(function() {
+	    var include = Array();
+	    //Leave empty to convert all links on the page or specify keywords
+	    //which URL must contain to be processed
+	    
+	    var exclude = Array();
+	    //Specify keywords which URL must not contain to be processed
+	    
+	    var id = "f1626b2cbd2a9059b07afcc171632704";
+	    var redirect = "http://cur.lv/redirect.php?id=" + id + "&url=";
+	    var links = $("a[href^='http']");
+	    
+	    for(var i = 0; i < links.length; i++) {
+	        var url = $(links[i]).attr("href");
+	        
+	        var deny = false;
+	        for(var j = 0; j < exclude.length; j++) {
+	            if(url.indexOf(exclude[j]) != -1) {
+	                deny = true;
+	                break;
+	            }
+	        }
+	        if(deny) {
+	            continue;
+	        }
+	        
+	        if(include.length > 0) {
+	            var allow = false;
+	            for(var j = 0; j < include.length; j++) {
+	                if(url.indexOf(include[j]) != -1) {
+	                    allow = true;
+	                    break;
+	                }
+	            }
+	            if(!allow) {
+	                continue;
+	            }
+	        }
+	        
+	        $(links[i]).attr("href",  redirect + encodeURIComponent(url));
+	    }
+	});
+	</script>
+
 </html>
 
