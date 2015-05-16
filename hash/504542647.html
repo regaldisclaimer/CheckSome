@@ -67,7 +67,7 @@
 			newUserRef = ref.child('hayStacks').child(authData.uid);
 
 			newUserRef.once('value', function(snapshot) {
-				if (snapshot == null) {
+				if (snapshot.val() == null) {
 
 					console.log('new User');
 
