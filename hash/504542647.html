@@ -66,13 +66,13 @@
 
 			newUserRef = ref.child('hayStacks').child(authData.uid);
 
-			// newUserRef.once('value', function(snapshot) {
-			// 	if (!snapshot) {
-			// 		newuserRef.set({
-			// 			registration 
-			// 		})
-			// 	}
-			// });
+			newUserRef.once('value', function(snapshot) {
+				if (!snapshot) {
+					newuserRef.set({
+						"email": authData.google.email
+					});
+				}
+			});
 
 		} else {
 			// user is logged out
