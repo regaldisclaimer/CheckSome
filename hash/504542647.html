@@ -68,6 +68,9 @@
 
 			newUserRef.once('value', function(snapshot) {
 				if (snapshot == null) {
+
+					console.log('new User');
+
 					newuserRef.set({
 						"nameTag": authData.google.email,
 						"creed": (new Date())
