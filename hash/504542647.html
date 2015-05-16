@@ -67,20 +67,13 @@
 			newUserRef = ref.child('hayStacks').child(authData.uid);
 
 			newUserRef.once('value', function(snapshot) {
-				if (!snapshot) {
+				if (snapshot == null) {
 					newuserRef.set({
-						"email": authData.google.email
+						"nameTag": authData.google.email,
+						"creed": (new Date())
 					});
 				}
 			});
-
-			// newUserRef.child('hayLogpile').set({
-			// 	""
-			// })
-
-			console.log(authData.google.email);
-			console.log(new Date());
-
 		} else {
 			// user is logged out
 			console.log("logged out");
