@@ -82,7 +82,8 @@
 			var prizeTime = new Date(+data.expTime);
 			prizeTime = prizeTime.toString();
 
-			prizeTime = "          Expiration on "+prizeTime+ "          Status: "+ isClaimed;
+			//prizeTime = "          Expiration on "+prizeTime+ "          Status: "+ isClaimed;
+			prizeTime = "	- 	Status: " + isClaimed;
 
 			var timeEl = $('<li>');
 			var nameEl = $("<strong class='pName'></strong>");
