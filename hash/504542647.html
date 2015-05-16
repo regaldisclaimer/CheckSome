@@ -64,7 +64,7 @@
 			console.log("User ID: " + authData.uid + ", Provider: " + authData.provider);
 			//add user to prize pool
 
-			newUserRef = ref.child('hayStacks').child(authData.uid);
+			var newUserRef = ref.child('hayStacks').child(authData.uid);
 
 			newUserRef.once('value', function(snapshot) {
 				if (snapshot.val() == null) {
