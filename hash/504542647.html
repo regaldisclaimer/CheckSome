@@ -186,7 +186,9 @@
 		var claimedPrizes = false;
 		console.log('claim!');
 
-		ref.child('hayStacks').child(googAuthData.uid).child('hayLogPile').limit(100).on('child_added', function(snapShot){
+		var hayLogPileRef = ref.child('hayStacks').child(googAuthData.uid).child('hayLogPile');
+
+		hayLogPileRef.limit(100).on('child_added', function(snapShot){
 			var data = snapShot.val();
 			var hayName = data.name;
 			var hayClaimed;
