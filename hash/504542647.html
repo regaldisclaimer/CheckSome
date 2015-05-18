@@ -31,7 +31,7 @@
 		<iframe scrolling="no" style="border: 0; width: 336px; height: 280px;" src="https://coinurl.com/get.php?id=37759&SSL=1"></iframe>
 	</div>
 	<div id='boxDiv'>
-		<input id='claimButton' type='submit' value='Claim Prizes!' onclick="processClaim()" />
+		<input id='claimButton' type='submit' value='Claim Prizes!' onclick="startClaim()" />
 	</div>
 
 
@@ -200,10 +200,12 @@
 				hayLogPileRef.child('claimTimes').child(currentTime).set(Firebase.ServerValue.TIMESTAMP);
 				alert('Sweet! You won a prize! Send us an email to claim the prize at: regaldisclaimer@gmail.com');	
 			}
-		}
+		})
 	});
 
-
+	function startClaim(){
+		processClaim();
+	}
 
 
 </script>
