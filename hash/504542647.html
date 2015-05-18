@@ -201,7 +201,7 @@
 
 		if(claimedPrizes = true) {
 			//if a prize available according to client, post current time, subject to server verification
-			hayLogPileRef.child('claimTimes').child(currentTime).set(Firebase.ServerValue.TIMESTAMP);
+			hayLogPileRef.child('claimTimes').child(currentTime.toString().substring(0,15)).set(Firebase.ServerValue.TIMESTAMP);
 			alert('Sweet! You won a prize! Send us an email to claim the prize at: regaldisclaimer@gmail.com');	
 		}
 	}
