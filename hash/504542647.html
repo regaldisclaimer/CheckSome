@@ -138,8 +138,9 @@
 		var currentTime = new Date();
 		var hayKey = [];
 		var hayCount = 1;
+		var hayLogPileRef = userRef.child('hayLogPile');
 
-		userRef.child('hayLogPile').limit(100).on('child_added', function(snapShot){
+		hayLogPileRef.limit(100).on('child_added', function(snapShot){
 			var data = snapShot.val();
 			var hayName = data.name;
 			var hayClaimed;
@@ -165,9 +166,9 @@
 			hayCount++;
 		});
 
-		userRef.child('hayLogPile').once('value', function(snapShot){
+		hayLogPileRef.once('value', function(snapShot){
 			if(snapShot.val()==null){
-				prizeExistsCB(false);
+				prizeExistsCB(false); 
 			} else {
 				prizeExistsCB(true);
 			}
@@ -180,14 +181,25 @@
 		}
 
 		$('claimButton').on('click', function(){
-			var claimedPrizes = [];
+			var claimedPrizes = false;
 			console.log('claim!');
-			for (var i=1; i<=100; i++){
-				if(hayKey[i]>currentTime){
-					claimedPrizes.push(i);
-				}
-			}
 
+			hayLogPileRef.limit(100).on('child_added', function(snapShot){
+				var data = snapShot.val();
+				var hayName = data.name;
+				var hayClaimed;
+				//check if expired
+				if (!data.claimed && (currentTime<data.expTime)){
+					//prize available according to client side.
+					claimedPrizes = true;
+				}
+			});
+
+			if(claimedPrizes = true) {
+				//if a prize available according to client, post current time, subject to server verification
+				hayLogPileRef.child('claimTimes').child(currentTime).set(Firebase.ServerValue.TIMESTAMP);
+				alert('Sweet! You won a prize! Send us an email to claim the prize at: regaldisclaimer@gmail.com');	
+			}
 		})
 	});
 
