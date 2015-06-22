@@ -2,6 +2,7 @@
 Contact: regaldisclaimer@gmail.com for all usage permissions*/
 html, body {
 	height: 100%;
+    margin: 0;
 	font-family: Roboto, sans-serif;
 	font-size: 18px;
 	text-align: center;
@@ -15,6 +16,7 @@ html, body {
     z-index:1;
     top: 0px;
     left: 0px;
+    margin-bottom: 10vh;
 }
 
 img {
