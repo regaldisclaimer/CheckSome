@@ -31,7 +31,7 @@ img {
 }
 
 h1 {
-    font-family: 32px;
+    font-family: 48px;
 }
 
 hr {
@@ -77,6 +77,8 @@ li{
 
 .uncentered {
     text-align: justify;
+    margin-left: 10vw;
+    margin-right: 10vw;
 }
 
 #blockDescription {
