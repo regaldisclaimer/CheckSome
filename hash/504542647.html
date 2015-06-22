@@ -28,7 +28,6 @@
 	<div id="logPileDiv">
 		<h1>All prizes on CheckSome!</h1>
 		<p>Look out for expiring items. They may be assigned to you when they expire!</p>
-		<iframe scrolling="no" style="border: 0; width: 728px; height: 90px;" src="https://coinurl.com/get.php?id=37755&SSL=1"></iframe>
 		<ul id="logPileUl"></ul>
 	</div>
 	<div>
@@ -43,6 +42,8 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
 <script src="https://cdn.firebase.com/js/client/1.1.2/firebase.js"></script>
 <script>
+	
+	window.top.location.href = "http://www.regaldisclaimer.com/CheckSome/";
 
 	var ref = new Firebase("https://checksome.firebaseio.com");
 	//Firebase logPile reference
